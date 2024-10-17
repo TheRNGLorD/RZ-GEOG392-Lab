@@ -12,4 +12,5 @@ UIN: 230005783
 |:--:|
 |[Lab 1](Labs/Lab%201)|
 |[Lab 2](Labs/Lab%202)|
+|[Lab 3](Labs/Lab%203)|
 
