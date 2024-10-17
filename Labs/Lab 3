@@ -1,0 +1,40 @@
+import os
+import geopandas as gpd
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR = os.path.join(BASE_DIR, 'Data')
+
+class CensusTract:
+    def __init__(self, geoid, population, geometry):
+        self.geoid = geoid
+        self.population = population
+        self.geometry = geometry
+    
+    def calculate_population_density(self):
+        # calculate the population density based on geometry
+        ### >>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<< ###
+        areakm = self.geometry.area / 1000000
+        population_density = self.population / areakm
+        return population_density
+        ### <<<<<<<<<<< END OF YOUR CODE <<<<<<<<<<< ###
+if __name__ == "__main__":
+    # read data
+    file_path = os.path.join(DATA_DIR, 'data.geojson')
+    # load data into GeoDataFrame
+    gdf = gpd.read_file(file_path)
+    # preview data
+    print(gdf.head())
+    print(gdf.columns)
+    print(gdf.shape)
+    print(gdf.dtypes)
+
+    # calculate the Population Density based on geometry
+    ### >>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<< ###
+
+    gdf['Pop_Den_new'] = gdf.apply(lambda row: CensusTract(row['GeoId'], row['Pop'], row['geometry']).calculate_population_density(), axis=1)
+  
+    ### <<<<<<<<<<< END OF YOUR CODE <<<<<<<<<<< ###
+
+    # preview the data again
+    print(gdf.head())
+    
